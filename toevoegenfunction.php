@@ -33,11 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $aankomst = $_POST["aankomst"];
         $nummerbzpas = $_POST["nummerbzpas"];
 
-        try{
-        toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas);
-        }
-
-        catch(Exception $e){
+        try {
+            toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas);
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
     }

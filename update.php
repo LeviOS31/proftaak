@@ -44,10 +44,9 @@ foreach ($gebruiker as $row) {
     </html>
 <?php
 require_once("updatefunction.php");
-try{
-vertrektijdtoevoegen($mysqli, $bezoekersid, $bezoekerspasid);
+try {
+    vertrektijdtoevoegen($mysqli, $bezoekersid, $bezoekerspasid);
+} catch (Exception $e) {
+    echo $e->getMessage();
 }
- catch(Exception $e){
-                echo $e->getMessage();
-            }
 ?>
