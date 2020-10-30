@@ -17,15 +17,10 @@ function toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas)
             header("Location: homepage.php");
 
         } else {
-
-            echo "er is een error " . $mysqli->error;
-
+            throw new Exception("er is een error $mysqli->error");
         }
-
     } else {
-
-        echo "er is een error " . $mysqli->error;
-
+        throw new Exception("er is een error $mysqli->error");
     }
 }
 
@@ -38,6 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $aankomst = $_POST["aankomst"];
         $nummerbzpas = $_POST["nummerbzpas"];
 
+        try{
         toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas);
+        }
+
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
     }
 }

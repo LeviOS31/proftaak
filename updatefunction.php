@@ -11,7 +11,7 @@ function vertrektijdtoevoegen($mysqli, $bezoekersid, $bezoekerspasid)
                 header("location: homepage.php");
             }
         } else {
-            echo "er is een error " . $mysqli->error;
+            throw new Exception("er is een error $mysqli->error");
         }
     }
 }

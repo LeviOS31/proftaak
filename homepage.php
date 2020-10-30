@@ -42,19 +42,28 @@ if ($_SESSION["loggedin"] != true) {
                 <h3>bezoekerspas</h3>
         <?php
         $bezoekerspas = [];
-        $stmt = $mysqli->query("SELECT nummer, in_gebruik FROM bezoekerspas ORDER BY in_gebruik ASC;");
-        if ($stmt->num_rows > 0) {
-            while ($rows = $stmt->fetch_array(MYSQLI_ASSOC)) {
-                $bezoekerspas[] = $rows;
+        function bezoekerstonen($mysqli){
+            $stmt = $mysqli->query("SELECT nummer, in_gebruik FROM bezoekerspas ORDER BY in_gebruik ASC;");
+            if ($stmt->num_rows > 0) {
+                while ($rows = $stmt->fetch_array(MYSQLI_ASSOC)) {
+                    $bezoekerspas[] = $rows;
+                }
+            }else {
+                throw new Exception("er is een error $mysqli->error");
             }
+            echo '<table border="2px solid black" style="border-collapse:collapse">';
+            echo "<tr><td>nummer</td><td>in gebruik</td></tr>";
+            foreach ($bezoekerspas as $rows) { //inhoud table
+                echo "<tr><td>" . $rows["nummer"] . "</td><td>" . $rows["in_gebruik"] . "</td></tr>";
+            }
+           echo "</table>";
         }
-        echo '<table border="2px solid black" style="border-collapse:collapse">';
-        echo "<tr><td>nummer</td><td>in gebruik</td></tr>";
-        foreach ($bezoekerspas as $rows) { //inhoud table
-            echo "<tr><td>" . $rows["nummer"] . "</td><td>" . $rows["in_gebruik"] . "</td></tr>";
+        try{
+        bezoekerstonen($mysqli);
         }
-        echo "</table>";
-
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
         ?>
         <br><a href="uitloggen.php">uitloggen</a>
     </body>
