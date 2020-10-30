@@ -11,18 +11,18 @@ if ($_SESSION["loggedin"] != true) {
         <title>bezoekers</title>
     </head>
     <body>
-    <form action="toevoegenfunction.php" method="post">
+    <form action="" method="post">
         <h2>bezoeker inschrijven</h2>
         <p>tijd invullen als: jaar/maand/dag/uur/min</p>
         <input type="text" name="naam" placeholder="naam">
         <input type="text" name="bedrijf" placeholder="bedrijf">
         <input type="text" name="aankomst" placeholder="aankomst tijd">
-        <input type="text" name="nummerbzpas" placeholder="nummer bezoekerspas">
+        <input type="number" name="nummerbzpas" placeholder="nummer bezoekerspas">
         <input type="submit" value="toevoegen">
     </form>
     <a href="homepage.php">terug</a>
     </body>
     </html>
 <?php
-
+var_dump($_POST["nummerbzpas"])
 ?>

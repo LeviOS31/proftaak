@@ -1,5 +1,6 @@
 <?php
-function toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas)
+declare(strict_types = 1);
+function toevoegen(string $naam, string $bedrijf, string $aankomst, int $nummerbzpas)
 {
     $mysqli = new mysqli("localhost", "root", "root", "bezoekers_registratie");
     if ($mysqli->connect_error) {
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $naam = $_POST["naam"];
         $bedrijf = $_POST["bedrijf"];
         $aankomst = $_POST["aankomst"];
-        $nummerbzpas = $_POST["nummerbzpas"];
+        $nummerbzpas = intval($_POST["nummerbzpas"]);
 
         try {
             toevoegen($naam, $bedrijf, $aankomst, $nummerbzpas);

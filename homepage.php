@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 session_start();
 if ($_SESSION["loggedin"] != true) {
     header("location:inloggen.php");
@@ -42,7 +43,7 @@ echo "</table>";
 <h3>bezoekerspas</h3>
 <?php
 $bezoekerspas = [];
-function bezoekerstonen($mysqli)
+function bezoekerstonen(object $mysqli)
 {
     $stmt = $mysqli->query("SELECT nummer, in_gebruik FROM bezoekerspas ORDER BY in_gebruik ASC;");
     if ($stmt->num_rows > 0) {

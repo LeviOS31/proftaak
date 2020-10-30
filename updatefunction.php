@@ -1,5 +1,6 @@
 <?php
-function vertrektijdtoevoegen($mysqli, $bezoekersid, $bezoekerspasid)
+declare(strict_types = 1);
+function vertrektijdtoevoegen(object $mysqli, string $bezoekersid, string $bezoekerspasid)
 {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt = $mysqli->prepare("UPDATE bezoekers SET vertrek = ? WHERE idbezoekers = ?;");
