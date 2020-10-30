@@ -12,7 +12,7 @@ if ($_SESSION["loggedin"] != true) {
     // Maak een leeg array aan om de medewerkers in op te slaan:
     $bezoeker = [];
 
-    $mysqli_resultaat = $mysqli->query("SELECT idbezoekers, naam, bedrijf, aankomst, vertrek FROM bezoekers ORDER BY aankomst DESC;");
+    $mysqli_resultaat = $mysqli->query("SELECT idbezoekers, naam, bedrijf, aankomst, vertrek FROM bezoekers ORDER BY aankomst DESC, idbezoekers DESC;");
     if ($mysqli_resultaat->num_rows > 0) {
         while ($row = $mysqli_resultaat->fetch_array(MYSQLI_ASSOC)) {
             $bezoeker[] = $row; // Eerst de data opslaan.
