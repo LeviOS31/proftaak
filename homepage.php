@@ -5,15 +5,16 @@ if ($_SESSION["loggedin"] != true) {
     header("location:inloggen.php");
     echo "u bent niet ingelogged <a href='inloggen.php'>terug</a>";
 } else {
-    $mysqli = new mysqli("localhost", "root", "root", "bezoekers_registratie");
-    if ($mysqli->connect_error) {
+    require_once("dbconnectionclass.php");
+    $mysqli = new leviconnect\MysqlConnection;
+    if ($mysqli->connect()->connect_error) {
         echo "error kan niet connecten";
     }
 
     // Maak een leeg array aan om de medewerkers in op te slaan:
     $bezoeker = [];
 
-    $mysqli_resultaat = $mysqli->query("SELECT idbezoekers, naam, bedrijf, aankomst, vertrek FROM bezoekers ORDER BY aankomst DESC, idbezoekers DESC;");
+    $mysqli_resultaat = $mysqli->connect()->query("SELECT * FROM bezoekers ORDER BY aankomst DESC, idbezoekers DESC;");
     if ($mysqli_resultaat->num_rows > 0) {
         while ($row = $mysqli_resultaat->fetch_array(MYSQLI_ASSOC)) {
             $bezoeker[] = $row; // Eerst de data opslaan.
@@ -45,7 +46,7 @@ echo "</table>";
 $bezoekerspas = [];
 function bezoekerstonen(object $mysqli)
 {
-    $stmt = $mysqli->query("SELECT nummer, in_gebruik FROM bezoekerspas ORDER BY in_gebruik ASC;");
+    $stmt = $mysqli->connect()->query("SELECT nummer, in_gebruik FROM bezoekerspas ORDER BY in_gebruik ASC;");
     if ($stmt->num_rows > 0) {
         while ($rows = $stmt->fetch_array(MYSQLI_ASSOC)) {
             $bezoekerspas[] = $rows;

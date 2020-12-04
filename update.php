@@ -1,6 +1,10 @@
 <?php
+
+use leviconnect\MysqlConnection;
+
 error_reporting(0);
 session_start();
+require_once("dbconnectionclass.php");
 if ($_SESSION["loggedin"] != true) {
     header("location:inloggen.php");
     echo "u bent niet ingelogged <a href='inloggen.php'>terug</a>";
@@ -9,12 +13,12 @@ if ($_SESSION["loggedin"] != true) {
 $bezoekersid = $_GET["id"];
 $gebruiker = [];
 
-$mysqli = new mysqli("localhost", "root", "root", "bezoekers_registratie");
+$mysqli = new MysqlConnection;
 
 if ($mysqli->connect_error) {
     echo "error kan niet connecten";
 }
-$stmt = $mysqli->query("SELECT naam, idbezoekers, bezoekerspas_idberzoekerspas FROM bezoekers WHERE idbezoekers = " . $bezoekersid . ";");
+$stmt = $mysqli->connect()->query("SELECT naam, idbezoekers, bezoekerspas_idberzoekerspas FROM bezoekers WHERE idbezoekers = " . $bezoekersid . ";");
 if ($stmt->num_rows > 0) {
     while ($row = $stmt->fetch_array(MYSQLI_ASSOC)) {
         $stmt->close();
@@ -45,7 +49,7 @@ foreach ($gebruiker as $row) {
 <?php
 require_once("updatefunction.php");
 try {
-    vertrektijdtoevoegen($mysqli, $bezoekersid, $bezoekerspasid);
+    vertrektijdtoevoegen($bezoekersid, $bezoekerspasid);
 } catch (Exception $e) {
     echo $e->getMessage();
 }

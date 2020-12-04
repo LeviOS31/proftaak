@@ -1,5 +1,8 @@
 <?php
 declare(strict_types = 1);
+
+use leviconnect\MysqlConnection;
+
 function toevoegen(string $naam, string $bedrijf, string $aankomst, int $nummerbzpas)
 {
     $mysqli = new mysqli("localhost", "root", "root", "bezoekers_registratie");
@@ -18,10 +21,11 @@ function toevoegen(string $naam, string $bedrijf, string $aankomst, int $nummerb
             header("Location: homepage.php");
 
         } else {
-            throw new Exception("er is een error $mysqli->error");
+            throw new Exception("2 er is een error " . $mysqli->error);
         }
     } else {
-        throw new Exception("er is een error $mysqli->error");
+        throw new Exception("1 er is een error " . $mysqli->error);
+        echo $mysqli->error;
     }
 }
 
